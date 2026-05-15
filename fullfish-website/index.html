@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FullFish | THAIFEX-ANUGA ASIA 2026 - Fulltopia</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Anton&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #1a3a8e;
+    --navy-dark: #0f2563;
+    --orange: #f29222;
+    --orange-light: #ffb84d;
+    --yellow: #ffd23f;
+    --cream: #fff8ee;
+    --gray: #6b7280;
+  }
+  body {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    background: linear-gradient(180deg, #fff8ee 0%, #ffffff 100%);
+    color: #1f2937;
+    line-height: 1.7;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--navy-dark);
+    color: white;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+  .topbar span { color: var(--orange-light); font-weight: 700; }
+
+  /* NAV */
+  .navbar {
+    background: white;
+    padding: 16px 0;
+    border-bottom: 2px solid var(--orange);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(15,37,99,0.05);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: 22px;
+    color: var(--navy);
+  }
+  .logo-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .logo-icon img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+  .logo-icon-fallback {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--navy), var(--orange));
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Anton', sans-serif;
+    display: grid; place-items: center;
+    letter-spacing: 1px;
+  }
+  .back-btn {
+    background: var(--cream);
+    color: var(--navy);
+    padding: 8px 18px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* ARTICLE CONTAINER */
+  .article-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .breadcrumb a { color: var(--orange); text-decoration: none; }
+  .breadcrumb .sep { color: #d1d5db; margin: 0 6px; }
+
+  /* ARTICLE HEADER */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+  .badge .dot { width: 6px; height: 6px; background: white; border-radius: 50%; }
+
+  h1.title {
+    color: var(--navy);
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 18px;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    color: var(--gray);
+    font-size: 14px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .meta .author {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .meta .author-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--navy), var(--orange));
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .meta .author-name {
+    color: var(--navy); font-weight: 600; font-size: 14px;
+  }
+
+  /* COVER IMAGE */
+  .cover {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    box-shadow: 0 12px 36px rgba(15,37,99,0.15);
+    background: #fff8ee;
+  }
+  .cover img {
+    width: 100%; display: block;
+  }
+  .cover-caption {
+    background: var(--cream);
+    padding: 12px 20px;
+    color: var(--gray);
+    font-size: 13px;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ARTICLE BODY */
+  .body { font-size: 16px; color: #374151; }
+  .body p { margin-bottom: 18px; }
+  .body .lead {
+    font-size: 18px;
+    color: var(--navy-dark);
+    font-weight: 500;
+    line-height: 1.8;
+    background: linear-gradient(135deg, #fff8ee 0%, white 100%);
+    padding: 24px 26px;
+    border-radius: 14px;
+    border-left: 5px solid var(--orange);
+    margin-bottom: 30px;
+  }
+  .body .lead strong { color: var(--orange); }
+  .body h2 {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 42px 0 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .body h2::before {
+    content: '';
+    width: 6px; height: 28px;
+    background: var(--orange);
+    border-radius: 3px;
+  }
+  .body strong { color: var(--navy); font-weight: 700; }
+  .body em { color: var(--orange); font-style: normal; font-weight: 600; }
+  .body blockquote {
+    background: linear-gradient(135deg, #fef3e2 0%, #fff8ee 100%);
+    border-left: 4px solid var(--orange);
+    padding: 22px 26px;
+    margin: 28px 0;
+    border-radius: 0 14px 14px 0;
+    font-style: italic;
+    color: var(--navy);
+    font-size: 17px;
+    position: relative;
+  }
+  .body blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 14px;
+    font-size: 60px;
+    color: var(--orange);
+    opacity: 0.3;
+    font-family: serif;
+  }
+  .body ul {
+    padding-left: 24px;
+    margin-bottom: 18px;
+  }
+  .body li {
+    margin-bottom: 10px;
+  }
+
+  /* 4 PILLARS CARDS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .pillar {
+    background: white;
+    border: 2px solid #fef3e2;
+    border-radius: 16px;
+    padding: 22px;
+    transition: all 0.25s;
+  }
+  .pillar:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(242,146,34,0.15);
+  }
+  .pillar .emoji { font-size: 36px; margin-bottom: 10px; }
+  .pillar .furufi-img {
+    width: 64px; height: 64px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  .pillar .furufi-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .pillar .furufi-fallback {
+    width: 100%; height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 8px;
+    background: white;
+  }
+  .pillar .furufi-fallback img {
+    width: 80%; height: 80%;
+    object-fit: contain;
+  }
+  .pillar .name {
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .pillar .desc {
+    color: var(--gray);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* BOOTH CARD */
+  .booth-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 34px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .booth-card::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(242,146,34,0.4) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .booth-card .label {
+    color: var(--orange-light);
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative; z-index: 2;
+  }
+  .booth-card .num {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 7vw, 64px);
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 8px;
+    position: relative; z-index: 2;
+  }
+  .booth-card .hall {
+    color: var(--orange-light);
+    font-size: 15px;
+    margin-bottom: 24px;
+    position: relative; z-index: 2;
+  }
+  .info-grid {
+    display: grid;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .info-row .ico {
+    width: 36px; height: 36px;
+    background: rgba(242,146,34,0.25);
+    border-radius: 10px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .info-row .text strong {
+    color: var(--orange-light);
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .info-row .text {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, #fff8ee 0%, white 100%);
+    border-radius: 20px;
+    margin-top: 40px;
+  }
+  .final-cta h3 {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .final-cta p {
+    color: var(--orange);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .final-cta .emoji-row { font-size: 32px; }
+  .final-cta .cta-mascot {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .final-cta .cta-mascot img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(15,37,99,0.25));
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* SHARE / SOCIAL */
+  .social-section {
+    margin-top: 40px;
+    padding: 28px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .social-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(242,146,34,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .social-section h3 {
+    color: var(--orange-light);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    position: relative; z-index: 2;
+  }
+  .social-section .title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative; z-index: 2;
+  }
+  .social-grid {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+  .social-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.25s;
+    backdrop-filter: blur(6px);
+  }
+  .social-btn:hover {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(242,146,34,0.35);
+  }
+  .social-btn .icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    background: white;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .social-btn.fb .icon { background: #1877f2; color: white; }
+  .social-btn.ig .icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  .social-btn.tt .icon { background: black; color: white; }
+  .social-btn.sp .icon { background: #ee4d2d; color: white; }
+  .social-btn.lz .icon { background: linear-gradient(135deg, #0f146e, #f0145a); color: white; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-dark);
+    color: #cbd5e1;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  footer p { font-size: 14px; margin-bottom: 6px; }
+  footer .brand { color: var(--orange); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>FULLFISH</span> · NEWS & MARKET INSIGHT
+</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <img src="fullfish-logo.png" alt="FullFish Logo"
+             onerror="this.parentElement.innerHTML='<div class=\'logo-icon-fallback\'>Full<br>Fish</div>';">
+      </div>
+      <span>FullFish<span style="color:var(--orange)">.</span>News</span>
+    </div>
+    <a href="#" class="back-btn">← กลับหน้าหลัก</a>
+  </div>
+</nav>
+
+<article class="article-wrap">
+
+  <div class="breadcrumb">
+    <a href="#">หน้าหลัก</a><span class="sep">›</span>
+    <a href="#">ข่าวสาร</a><span class="sep">›</span>
+    Market Insight
+  </div>
+
+  <span class="badge"><span class="dot"></span>MARKET INSIGHT</span>
+
+  <h1 class="title">THAIFEX – ANUGA ASIA 2026 เวทีการค้าระดับโลกที่นักธุรกิจอาหารห้ามพลาด FullFish เตรียมเปิดประสบการณ์ใหม่ของแบรนด์ภายใต้จักรวาล "Fulltopia" สู่สายตานานาชาติ</h1>
+
+  <div class="meta">
+    <div class="author">
+      <div class="author-avatar">FF</div>
+      <div>
+        <div class="author-name">FullFish Press Team</div>
+        <div style="font-size:12px;color:var(--gray);">บรรณาธิการแบรนด์</div>
+      </div>
+    </div>
+    <span>📅 14 พฤษภาคม 2569</span>
+    <span>⏱ อ่าน 4 นาที</span>
+    <span>👁 1,248</span>
+  </div>
+
+  <div class="cover">
+    <img src="thaifex-banner.jpg" alt="THAIFEX-ANUGA ASIA 2026 FullFish Booth"
+         onerror="this.parentElement.innerHTML='<div style=\'padding:60px;background:linear-gradient(135deg,#1a3a8e,#f29222);color:white;text-align:center;font-size:24px;font-weight:700;\'>FullFish × THAIFEX-ANUGA ASIA 2026<br><span style=\'font-size:14px;font-weight:400;opacity:0.8;\'>(วางไฟล์ thaifex-banner.jpg ในโฟลเดอร์เดียวกัน)</span></div>';">
+    <div class="cover-caption">📸 บูธ FullFish พร้อมต้อนรับผู้เยี่ยมชมจากทั่วโลก ณ THAIFEX-ANUGA ASIA 2026</div>
+  </div>
+
+  <div class="body">
+
+    <div class="lead">
+      จากปลาเส้นไทยแบรนด์เล็กๆ ในวันแรก<br>
+      สู่ก้าวสำคัญบนเวทีอาหารระดับโลก…<br>
+      <strong>FullFish</strong> กำลังเดินทางไปอีกขั้น<br>
+      และครั้งนี้ เราพร้อมพาทุกคนเข้าสู่จักรวาลแห่งความสุข <strong>"Fulltopia"</strong>
+    </div>
+
+    <p>ในงาน <strong>THAIFEX – ANUGA ASIA 2026</strong> เวทีสำคัญที่รวมแบรนด์อาหาร นักลงทุน และพาร์ทเนอร์จากทั่วโลกไว้ในที่เดียว</p>
+
+    <p>นี่ไม่ใช่แค่งานแสดงสินค้า แต่มันคือช่วงเวลาที่ <strong>ความตั้งใจ ความสร้างสรรค์ และความฝัน</strong>ของแบรนด์ไทย กำลังถูกส่งต่อไปสู่สายตานานาชาติ</p>
+
+    <h2>จุดเริ่มต้นเล็กๆ ที่กำลังเติบโต</h2>
+    <p>ย้อนกลับไปในวันแรก FullFish เริ่มต้นจากความตั้งใจเล็กๆ ที่จะทำ <strong>ปลาเส้น</strong>ให้อร่อยและแตกต่าง ด้วยวัตถุดิบคุณภาพและสูตรเฉพาะ ที่ผ่านการพัฒนาอย่างต่อเนื่อง วันนี้เราไม่ใช่แค่แบรนด์ปลาเส้นไทยอีกหนึ่งแบรนด์ แต่กำลังกลายเป็น <strong>หนึ่งในแบรนด์อาหารไทยที่พร้อมยืนหยัดบนเวทีสากล</strong></p>
+
+    <h2>มากกว่าขนมปลาเส้น คือความสุขที่เชื่อมผู้คน</h2>
+    <p>ตลอดเวลาที่ผ่านมา FullFish ไม่ได้อยากเป็นแค่ <strong>"ขนมปลาเส้น"</strong> แต่เราอยากเป็นความสุขเล็กๆ ที่เชื่อมผู้คนเข้าหากันผ่านรอยยิ้ม ความสนุก และความอร่อย</p>
+
+    <p>ทุกคำที่กัด ทุกซองที่เปิด คือช่วงเวลาแห่งความสุขที่เราอยากส่งต่อ ไม่ว่าจะเป็นมื้อว่างระหว่างวัน ของฝากที่บอกเล่าความเป็นไทย หรือสแน็คคู่ใจในทุกๆ การเดินทาง</p>
+
+    <blockquote>
+      เราอยากเป็นความสุขเล็กๆ ที่เชื่อมผู้คนเข้าหากัน ผ่านรอยยิ้ม ความสนุก และความอร่อย
+    </blockquote>
+
+    <h2>ทำไมต้อง THAIFEX-ANUGA ASIA 2026?</h2>
+    <p>THAIFEX-ANUGA ASIA คือ <strong>งานแสดงสินค้าอาหารและเครื่องดื่มที่ใหญ่ที่สุดในเอเชีย</strong> ที่รวบรวม Buyer, Distributor, Importer และ Investor จากกว่า <strong>130 ประเทศทั่วโลก</strong> ไว้ในที่เดียว</p>
+
+    <p>สำหรับ FullFish นี่คือเวทีที่จะพาแบรนด์ไทยก้าวข้ามขีดจำกัด เปิดบทสนทนาทางธุรกิจกับพาร์ทเนอร์ระดับโลก และที่สำคัญ — คือ <strong>โอกาสที่จะแสดงให้โลกเห็นว่า ปลาเส้นไทย ไม่ได้เป็นเพียงสแน็คท้องถิ่น แต่สามารถเป็นไอคอนของอาหารว่างเอเชีย</strong>ได้</p>
+
+    <h2>เปิดตัว "Fulltopia" จักรวาลแห่งความสุขครั้งแรก</h2>
+    <p>ปีนี้เราเตรียมเปิดประสบการณ์ใหม่ของแบรนด์ที่อยากให้ทุกคนได้เข้ามาสัมผัสด้วยตัวเอง ภายใต้ 4 องค์ประกอบหลักของ <em>Fulltopia</em>:</p>
+
+    <div class="pillars">
+      <div class="pillar pillar-furufi">
+        <div class="furufi-img">
+          <img src="furufi-mascot.png" alt="FURUFI Mascot"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+          <div class="furufi-fallback" style="display:none;">
+            <img src="fullfish-logo.png" alt="FullFish"
+                 onerror="this.style.display='none';this.parentElement.innerHTML='<div style=&quot;font-family:Anton;font-size:18px;color:var(--orange);&quot;>FURUFI</div>';">
+          </div>
+        </div>
+        <div class="name">คาแรกเตอร์ใหม่</div>
+        <div class="desc"><strong style="color:var(--orange);">FURUFI</strong> ปลาสีน้ำเงิน-ส้ม และผองเพื่อนที่จะเป็นทูตของแบรนด์ในการเดินทาง</div>
+      </div>
+      <div class="pillar">
+        <div class="emoji">📦</div>
+        <div class="name">แพ็กเกจจิ้งใหม่</div>
+        <div class="desc">Story-Telling Packaging ที่ผสมผสาน Modern Asian Aesthetic กับสีสันสดใส</div>
+      </div>
+      <div class="pillar">
+        <div class="emoji">🍿</div>
+        <div class="name">โปรดักต์ใหม่</div>
+        <div class="desc">ปลาเส้นรสชาติใหม่สำหรับตลาดสากล รับรองมาตรฐาน HACCP, GMP, Halal</div>
+      </div>
+      <div class="pillar">
+        <div class="emoji">🌏</div>
+        <div class="name">โลก Fulltopia</div>
+        <div class="desc">Brand Universe ที่ขยายไปสู่ Content, Merch และประสบการณ์ Offline</div>
+      </div>
+    </div>
+
+    <h2>โอกาสทางธุรกิจสำหรับพาร์ทเนอร์</h2>
+    <p>สำหรับ <strong>นักลงทุน Distributor และ Importer</strong> ที่กำลังมองหาแบรนด์อาหารไทยที่มีศักยภาพในการเติบโตในตลาดสากล FullFish พร้อมเปิดโอกาสในการเป็นพาร์ทเนอร์ในหลายรูปแบบ:</p>
+    <ul>
+      <li><strong>Distribution Partnership</strong> — เปิดตลาดใหม่ในประเทศของคุณ</li>
+      <li><strong>Bulk & Retail Orders</strong> — สำหรับร้านค้าและซูเปอร์มาร์เก็ต</li>
+    </ul>
+
+    <h2>ใครที่ควรมาเจอเรา?</h2>
+    <p>ใครที่กำลังมองหา <strong>แรงบันดาลใจใหม่ๆ โอกาสทางธุรกิจ</strong> หรืออยากรู้ว่า <strong>ขนมไทยจะไปได้ไกลแค่ไหน</strong> — เรารอคุณอยู่ที่บูธนี้</p>
+
+    <p>ไม่ว่าคุณจะเป็น <strong>นักธุรก
